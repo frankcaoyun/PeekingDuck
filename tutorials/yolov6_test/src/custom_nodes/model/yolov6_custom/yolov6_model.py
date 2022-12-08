@@ -25,7 +25,6 @@ class YOLOV6Model:
         self.config = config
         self.logger = logging.getLogger(__name__)
 
-
     def predict(self, image: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Predicts bboxes from image.
 
@@ -53,7 +52,6 @@ class YOLOV6Model:
             )
         return bboxes, classes, scores
 
-        
         # return NotImplementedError
 
     

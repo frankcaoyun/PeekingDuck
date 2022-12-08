@@ -16,9 +16,9 @@ from yolov6.utils.nms import non_max_suppression
 from yolov6.utils.torch_utils import get_model_info
 
 import sys
-root_path = '/home/frank/git-repo/aiap/PeekingDuck'
-sys.path.insert(0, str(root_path))
-print(sys.path)
+# root_path = '/home/frank/git-repo/aiap/PeekingDuck'
+# sys.path.insert(0, str(root_path))
+# print(sys.path)
 from peekingduck.pipeline.utils.bbox.transforms import xyxy2xyxyn # this is not working yet
 
 class Inferer:
@@ -31,7 +31,7 @@ class Inferer:
         # Init model
         self.device = device
         # self.img_size = source.shape # assign the original shape of the image
-        print('source shape:', source.shape)
+        # print('source shape:', source.shape)
         self.img_size = list(source.shape[:2]) # take the height and width. drop the channel
         cuda = self.device != 'cpu' and torch.cuda.is_available()
         self.device = torch.device('cuda:0' if cuda else 'cpu')
@@ -39,7 +39,7 @@ class Inferer:
         self.stride = self.model.stride
         self.class_names = load_yaml(yaml)['names']
         self.img_size = self.check_img_size(self.img_size, s=self.stride)  # check image size
-        print('image size after correction:', self.img_size)
+        # print('image size after correction:', self.img_size)
         # add in the source image array
         self.source = source
         self.half = half
@@ -94,10 +94,7 @@ class Inferer:
         det_np = det.cpu().detach().numpy()
         bboxes = det_np[:, :4] # These are absolute positions.
         # Convert to range between 0 and 1
-        print(bboxes)
-        print('image_size:', self.img_size)
         bboxes = xyxy2xyxyn(bboxes, *self.img_size) # normalize
-        print()
         
         # classes = det_np[:, 5]
         classes = np.array([self.class_names[int(i)] for i in det_np[:, 5]]) # convert the numbers to label names

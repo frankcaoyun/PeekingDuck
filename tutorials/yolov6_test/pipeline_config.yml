@@ -1,0 +1,10 @@
+nodes:
+- input.visual:
+    # source: /home/frank/git-repo/aiap/PeekingDuck/data/images/image3.jpg
+    source: 0
+- model.yolox # need to change to the existing model or custom model
+# - model.yolov6 # this will not work, as the models are imported from the installed package
+# - custom_nodes.model.yolov6_node # use the custom node
+- draw.bbox:
+    show_labels: True
+- output.screen

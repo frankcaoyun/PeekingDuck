@@ -6,7 +6,8 @@ from typing import Any, Dict
 
 import numpy as np
 
-from peekingduck.pipeline.nodes.abstract_node import AbstractNode
+# from peekingduck.pipeline.nodes.abstract_node import AbstractNode
+from peekingduck.nodes.abstract_node import AbstractNode
 from custom_nodes.model.yolov6_custom import yolov6_model
 
 

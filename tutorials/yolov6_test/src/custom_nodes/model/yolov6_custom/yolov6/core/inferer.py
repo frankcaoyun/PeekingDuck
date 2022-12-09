@@ -19,7 +19,8 @@ import sys
 # root_path = '/home/frank/git-repo/aiap/PeekingDuck'
 # sys.path.insert(0, str(root_path))
 # print(sys.path)
-from peekingduck.pipeline.utils.bbox.transforms import xyxy2xyxyn # this is not working yet
+# from peekingduck.pipeline.utils.bbox.transforms import xyxy2xyxyn # this is not working yet
+from peekingduck.utils.bbox.transforms import xyxy2xyxyn
 
 class Inferer:
     def __init__(self, source, weights, device, yaml, img_size, half):

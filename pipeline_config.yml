@@ -1,6 +1,9 @@
 nodes:
 - input.visual:
     source: https://storage.googleapis.com/peekingduck/videos/wave.mp4
-- model.posenet
-- draw.poses
+    # source: 0
+- model.yolov6
+# - model.yolox
+- draw.bbox:
+    show_labels: True
 - output.screen

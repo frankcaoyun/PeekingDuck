@@ -1,0 +1,11 @@
+nodes:
+- input.visual:
+    source: https://storage.googleapis.com/peekingduck/videos/wave.mp4
+    # source: data/benchmark/single
+# - model.yolov6
+- model.yolox
+- dabble.fps
+# - draw.legend
+- draw.bbox:
+    show_labels: True
+# - output.screen

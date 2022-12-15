@@ -24,8 +24,14 @@ class YOLOV6Model:
         """initiate the model with all the model parameters"""
         self.config = config
         self.logger = logging.getLogger(__name__)
+        print(config)
+        # initialize the inferer here
+        self.inferer = infer.init_inferer(weights=os.path.join(ROOT, 'weights/yolov6n.pt'),
+            # source = image,
+            yaml=os.path.join(ROOT, 'data/coco.yaml'))
 
     def predict(self, image: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        # print(image)
         """Predicts bboxes from image.
 
         Args:
@@ -44,12 +50,15 @@ class YOLOV6Model:
         if not isinstance(image, np.ndarray):
             raise TypeError("image must be a np.ndarray")
 
-        bboxes, classes, scores = infer.run(
-            weights=os.path.join(ROOT, 'weights/yolov6n.pt'),
-            # source=r'/home/frank/git-repo/aiap/PeekingDuck/data/images/image1.jpg',
-            source = image,
-            yaml=os.path.join(ROOT, 'data/coco.yaml')
-            )
+        # bboxes, classes, scores = infer.run(
+        #     weights=os.path.join(ROOT, 'weights/yolov6n.pt'),
+        #     # source=r'/home/frank/git-repo/aiap/PeekingDuck/data/images/image1.jpg',
+        #     source = image,
+        #     yaml=os.path.join(ROOT, 'data/coco.yaml')
+        #     )
+
+        bboxes, classes, scores = infer.run(self.inferer, source=image)
+
         return bboxes, classes, scores
 
         # return NotImplementedError

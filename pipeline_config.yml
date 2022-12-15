@@ -4,6 +4,7 @@ nodes:
     # source: 0
 - model.yolov6
 # - model.yolox
+- dabble.fps
 - draw.bbox:
     show_labels: True
 - output.screen

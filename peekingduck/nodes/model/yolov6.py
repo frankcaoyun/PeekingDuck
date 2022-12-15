@@ -34,7 +34,7 @@ class Node(AbstractNode):
         """
         # print('config: \n\n\n', self.config)
         # # the input for this node is an image numpy array
-
+        
         bboxes, labels, scores = self.model.predict(inputs["img"])
         bboxes = np.clip(bboxes, 0, 1)
 

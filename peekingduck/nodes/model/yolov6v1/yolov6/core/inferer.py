@@ -23,7 +23,7 @@ import sys
 from peekingduck.utils.bbox.transforms import xyxy2xyxyn
 
 class Inferer:
-    def __init__(self, source, weights, device, yaml, img_size, half):
+    def __init__(self, weights, device, yaml, img_size, half):
         import glob
         from yolov6.data.datasets import IMG_FORMATS
 
@@ -33,16 +33,16 @@ class Inferer:
         self.device = device
         # self.img_size = source.shape # assign the original shape of the image
         # print('source shape:', source.shape)
-        self.img_size = list(source.shape[:2]) # take the height and width. drop the channel
+        # self.img_size = list(source.shape[:2]) # take the height and width. drop the channel
         cuda = self.device != 'cpu' and torch.cuda.is_available()
         self.device = torch.device('cuda:0' if cuda else 'cpu')
         self.model = DetectBackend(weights, device=self.device)
         self.stride = self.model.stride
         self.class_names = load_yaml(yaml)['names']
-        self.img_size = self.check_img_size(self.img_size, s=self.stride)  # check image size
+        # self.img_size = self.check_img_size(self.img_size, s=self.stride)  # check image size
         # print('image size after correction:', self.img_size)
         # add in the source image array
-        self.source = source
+        # self.source = source # take this out
         self.half = half
 
         # Half precision
@@ -52,8 +52,8 @@ class Inferer:
             self.model.model.float()
             half = False
 
-        if self.device.type != 'cpu':
-            self.model(torch.zeros(1, 3, *self.img_size).to(self.device).type_as(next(self.model.model.parameters())))  # warmup
+        # if self.device.type != 'cpu':
+        #     self.model(torch.zeros(1, 3, *self.img_size).to(self.device).type_as(next(self.model.model.parameters())))  # warmup
 
         # since the source is now an image array, no ned to do this
         # # Load data
@@ -77,11 +77,22 @@ class Inferer:
 
         LOGGER.info("Switch model to deploy modality.")
 
-    def infer(self, conf_thres, iou_thres, classes, agnostic_nms, max_det, save_dir, save_txt, save_img, hide_labels, hide_conf):
+    def infer(self, source, conf_thres, iou_thres, classes, agnostic_nms, max_det
+    #, save_dir, save_txt, save_img, hide_labels, hide_conf
+    ):
         ''' Model Inference and results visualization '''
 
         # print(self.source) # this is the image array
-        img, img_src = self.precess_image(self.source, self.img_size, self.stride, self.half) # return the image tensor and original image
+        # img, img_src = self.precess_image(self.source, self.img_size, self.stride, self.half) # return the image tensor and original image
+
+        ### taken from the init portion
+        self.img_size = list(source.shape[:2]) # take the height and width. drop the channel
+        self.img_size = self.check_img_size(self.img_size, s=self.stride)  # check image size
+        if self.device.type != 'cpu':
+            self.model(torch.zeros(1, 3, *self.img_size).to(self.device).type_as(next(self.model.model.parameters())))  # warmup
+        ###
+
+        img, img_src = self.precess_image(source, self.img_size, self.stride, self.half) # return the image tensor and original image
         img = img.to(self.device)
         if len(img.shape) == 3:
             img = img[None] # expand for batch dim
@@ -208,8 +219,10 @@ class Inferer:
         else:
             raise Exception(f"Unsupported type of img_size: {type(img_size)}")
 
-        if new_size != img_size:
-            print(f'WARNING: --img-size {img_size} must be multiple of max stride {s}, updating to {new_size}')
+        # remove the warning message
+        # if new_size != img_size:
+        #     print(f'WARNING: --img-size {img_size} must be multiple of max stride {s}, updating to {new_size}')
+
         return new_size if isinstance(img_size,list) else [new_size]*2
 
     def make_divisible(self, x, divisor):

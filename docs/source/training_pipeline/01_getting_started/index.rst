@@ -62,9 +62,9 @@ The general workflow when using the training pipeline is:
 
 ----------
 
-================
- Getting Started
-================
+===============
+Getting Started
+===============
 
 This guide explains how you can prepare your virtual environment and test out 
 the default training pipeline using either TensorFlow or PyTorch.

@@ -1,12 +1,12 @@
 pytorch:
     global_train_params:
         manual_seed: ${random_state}
-        epochs: 3
+        epochs: 1
         patience: 3
         model_name: ${model.pytorch.model_name}
         debug: ${debug}
         debug_epochs: 2
-        fine_tune_epochs: 5
+        fine_tune_epochs: 1
         classification_type: ${data_module.dataset.classification_type}
         monitored_metric:
             monitor: val_MulticlassAccuracy
@@ -78,4 +78,3 @@ tensorflow:
         project_name: ${project_name}
         unique_id: ${stores.unique_id} # field(default_factory=generate_uuid4)
         model_artifacts_dir: "./outputs/${project_name}/${stores.unique_id}/"
-

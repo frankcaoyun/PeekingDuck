@@ -16,7 +16,8 @@
 
 from omegaconf import DictConfig, ListConfig
 
-from src.model.pytorch_base import PTModel
+# from src.model.pytorch_base import PTModel
+from ..model.pytorch_base import PTModel
 
 
 def unfreeze_all_params(model: PTModel) -> None:

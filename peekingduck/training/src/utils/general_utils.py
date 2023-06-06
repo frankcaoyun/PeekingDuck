@@ -34,7 +34,9 @@ import numpy as np
 import pandas as pd
 import requests
 from tqdm import tqdm
-from src.config import TORCH_AVAILABLE, TF_AVAILABLE
+
+# from src.config import TORCH_AVAILABLE, TF_AVAILABLE
+from ..config import TORCH_AVAILABLE, TF_AVAILABLE
 
 if TORCH_AVAILABLE:
     import torch

@@ -1,0 +1,30 @@
+input: ["img"]
+output: ["pred_label"]
+
+weights_parent_dir: weights
+weights_dir: /home/frank/git-repo/aiap/PeekingDuck/peekingduck_weights/classification/pytorch/vgg16_best_val_MulticlassAccuracy_fold_0_epoch1.pt
+class_label_map:
+  {
+    0: "garlic",
+    1: "cattail",
+    2: "soybean",
+    3: "red_cabbage",
+    4: "mung_bean_sprouts",
+  }
+
+framework: pytorch
+
+pytorch:
+  adapter: "timm"
+  model_name: "vgg16" # resnet18 efficientnet_v2_s vgg11-19 vgg16 mobilenet_v3_small
+  weights: None # for torchvision >= 0.13. Refer to official doc for customized values.
+  pretrained: True # for timm only
+  num_classes: 5
+  device: "cuda"
+  size: 224
+
+tensorflow:
+  model_name: "VGG16" # VGG16 ResNet50 EfficientNetV2S
+  activation: "softmax"
+  image_size: ${data_module.dataset.image_size}
+  device: "cuda"

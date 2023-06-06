@@ -21,7 +21,8 @@ import platform
 import importlib
 from packaging import version
 
-from configs import LOGGER_NAME
+# from configs import LOGGER_NAME
+from ..configs import LOGGER_NAME
 
 logger = logging.getLogger(LOGGER_NAME)  # pylint: disable=invalid-name
 

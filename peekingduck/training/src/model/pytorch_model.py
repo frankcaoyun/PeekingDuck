@@ -23,10 +23,15 @@ import torchvision
 from torch import nn
 from omegaconf import DictConfig
 
-from src.model.pytorch_base import PTModel
-from src.utils.general_utils import rsetattr
-from src.utils.pt_model_utils import freeze_all_params
-from configs import LOGGER_NAME
+# from src.model.pytorch_base import PTModel
+# from src.utils.general_utils import rsetattr
+# from src.utils.pt_model_utils import freeze_all_params
+from .pytorch_base import PTModel
+from ..utils.general_utils import rsetattr
+from ..utils.pt_model_utils import freeze_all_params
+
+# from configs import LOGGER_NAME
+from ...configs import LOGGER_NAME
 
 # pylint: disable=too-many-instance-attributes, too-many-arguments, logging-fstring-interpolation, invalid-name
 logger = logging.getLogger(LOGGER_NAME)

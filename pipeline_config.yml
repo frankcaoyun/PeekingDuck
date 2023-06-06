@@ -1,6 +1,15 @@
+# nodes:
+# - input.visual:
+#     source: https://storage.googleapis.com/peekingduck/videos/wave.mp4
+# - model.posenet
+# - draw.pose
+# - output.screen
+
 nodes:
-- input.visual:
-    source: https://storage.googleapis.com/peekingduck/videos/wave.mp4
-- model.posenet
-- draw.pose
-- output.screen
+    - input.visual:
+          source: data/inference
+    - model.classification
+    - output.csv_writer:
+          stats_to_track: ["filename", "pred_label", "pred_score"]
+          file_path: data/predictions/classifier_predictions.csv
+          logging_interval: 0

@@ -63,23 +63,27 @@ value as the :mod:`project_name` value defined in the :ref:`config-files-maincon
       ├── \ :blue:`rsna/...` \ |Blank|
       ├── \ :blue:`vegfru/...` \ |Blank|
       └── \ :blue:`<your_dataset_folder>/` \ |Blank|
-            ├── \ :blue:`<your_images_folder>/` \ |Blank|
-            │      ├── \ :blue:`<class_1>/` \ |Blank|
-            │      │      ├── <image_001>.jpg
-            │      │      ├── <image_002>.jpg
-            │      │      ├── <image_003>.jpg
-            │      │      └── ...
-            │      ├── \ :blue:`<class_2>/` \ |Blank|
-            │      │      ├── <image_001>.jpg
-            │      │      ├── <image_002>.jpg
-            │      │      ├── <image_003>.jpg
-            │      │      └── ...
-            │      └── \ :blue:`<class_3>/` \ |Blank|
-            │             ├── <image_001>.jpg
-            │             ├── <image_002>.jpg
-            │             ├── <image_003>.jpg
-            │             └── ...
-            └── <image_to_label_map>.csv
+               ├── \ :blue:`<class_1>/` \ |Blank|
+               │      ├── <image_001>.jpg
+               │      ├── <image_002>.jpg
+               │      ├── <image_003>.jpg
+               │      └── ...
+               ├── \ :blue:`<class_2>/` \ |Blank|
+               │      ├── <image_001>.jpg
+               │      ├── <image_002>.jpg
+               │      ├── <image_003>.jpg
+               │      └── ...
+               ├── \ :blue:`<class_3>/` \ |Blank|
+               │      ├── <image_001>.jpg
+               │      ├── <image_002>.jpg
+               │      ├── <image_003>.jpg
+               │      └── ...
+               ├── \ :blue:`.../` \ |Blank|
+               │      ├── <...>.jpg
+               │      ├── <...>.jpg
+               │      ├── <...>.jpg               
+               │      └── ...
+               └── <image_to_label_map>.csv
 
 
 .. _03-config-folder-structure:
@@ -109,11 +113,7 @@ navigate the config structure.
           │      ├── \ :blue:`transform/` \ |Blank|
           │      │      ├── test.yaml
           │      │      └── train.yaml
-          │      ├── cifar10.yaml
-          │      ├── rsna.yaml
-          │      ├── vegfru5.yaml
-          │      ├── vegfru15.yaml
-          │      └── vegfru25.yaml
+          │      └── classification.yaml
           ├── \ :blue:`hydra/` \ |Blank|
           │      └── \ :blue:`job_logging/` \ |Blank|
           │             └── custom.yaml
@@ -224,15 +224,15 @@ Test for Tensorflow:
 
 .. admonition:: Terminal Session
 
-   | \ :blue:`[~user/PeekingDuck]` \ > \ :green:`python ./peekingduck/training/
-     main.py debug=True framework=tensorflow` \
+   | \ :blue:`[~user/PeekingDuck]` \ > \ 
+      :green:`python ./peekingduck/training/main.py debug=True framework=tensorflow` \
 
 Test for PyTorch:
 
 .. admonition:: Terminal Session
 
-   | \ :blue:`[~user/PeekingDuck]` \ > \ :green:`python ./peekingduck/training/
-     main.py debug=True framework=pytorch` \
+   | \ :blue:`[~user/PeekingDuck]` \ > \ 
+      :green:`python ./peekingduck/training/main.py debug=True framework=pytorch` \
 
 
 View the results of each run at the specified output folder directory 
